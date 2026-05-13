@@ -5,6 +5,14 @@
 <meta charset="utf-8"/>
 <title>EisdieleKasse</title>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
+<link rel="manifest" href="manifest.json"/>
+<meta name="theme-color" content="#ff6b8b"/>
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png"/>
+<link rel="icon" type="image/png" sizes="512x512" href="icon-512.png"/>
+<link rel="apple-touch-icon" href="icon-192.png"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-title" content="Eiskasse"/>
 <style>
 :root {
   --bg: #fff5ec; --surface: #ffffff; --border: #f1e0d0; --soft: #fff0e0;
@@ -114,6 +122,24 @@ button { font-family: inherit; cursor: pointer; }
   color: var(--text) !important;
   font-size: 13px !important;
 }
+
+/* Logo und Version in der Topbar */
+.logo {
+  width: 36px !important;
+  height: 36px !important;
+  background-image: url('logorw.png') !important;
+  background-size: contain !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  border-radius: 50% !important;
+  flex: 0 0 36px !important;
+}
+.version {
+  font-size: 11px !important;
+  color: var(--muted) !important;
+  font-weight: 400 !important;
+  margin-left: 4px !important;
+}
 </style>
 </head>
 <body>
@@ -124,6 +150,16 @@ button { font-family: inherit; cursor: pointer; }
     rtl.run('program');
   } else {
     alert('FEHLER: rtl ist nicht definiert. EisdieleKasse.js wurde nicht geladen oder ausgefuehrt.');
+  }
+</script>
+<script>
+  // Service Worker registrieren (nur in HTTPS oder localhost)
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('service-worker.js')
+        .then(function(reg) { console.log('Service Worker registriert:', reg.scope); })
+        .catch(function(err) { console.log('Service Worker Fehler:', err); });
+    });
   }
 </script>
 </body>
